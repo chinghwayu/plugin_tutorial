@@ -8,8 +8,6 @@ except ImportError:
 import logging
 from stevedore import ExtensionManager
 
-log = logging.getLogger(__name__)
-
 
 def register_plugin(name, namespace, entry_point) -> None:
     """Registers a plugin dynamically without needing to install as a package.

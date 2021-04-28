@@ -1,5 +1,5 @@
 import pytest
-from plugin_tutorial.relay import Relay
+from relay import Relay
 
 
 def test_relay_interface():
