@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 from stevedore import driver
-from plugin import register_plugin
 
 
 class RelayBase(metaclass=ABCMeta):
@@ -22,24 +21,9 @@ class RelayBase(metaclass=ABCMeta):
 
 
 class Relay:
-    def __init__(self, name="relay1", **kwargs) -> None:
-        namespace = "myrelay"
-        if name == "relay1":
-            kwargs = {}
-            register_plugin(
-                name=name,
-                namespace=namespace,
-                entry_point="relay:RelayOne",
-            )
-        elif name == "relay2":
-            kwargs = {}
-            register_plugin(
-                name=name,
-                namespace=namespace,
-                entry_point="relay:RelayTwo",
-            )
+    def __init__(self, name="", **kwargs) -> None:
         self._relay_mgr = driver.DriverManager(
-            namespace=namespace,
+            namespace="plugin_tutorial",
             name=name,
             invoke_on_load=True,
             invoke_kwds=kwargs,
