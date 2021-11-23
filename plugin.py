@@ -5,7 +5,6 @@ except ImportError:
     # For everyone else
     import importlib_metadata
 
-import logging
 from stevedore import ExtensionManager
 
 

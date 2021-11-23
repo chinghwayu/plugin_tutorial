@@ -4,6 +4,12 @@ from plugin import register_plugin
 
 
 class RelayBase(metaclass=ABCMeta):
+    """Base class for relay plugins"""
+
+    def __init__(self) -> None:
+        """Define base attributes."""
+        self.connected = False
+
     @abstractmethod
     def disconnect(self) -> None:
         """Disconnects relay."""
@@ -19,6 +25,44 @@ class RelayBase(metaclass=ABCMeta):
         Args:
             seconds (int): Amount of time to sleep between disconnect and connect.
         """
+
+
+class RelayOne(RelayBase):
+    def __init__(self):
+        super().__init__()
+
+    def disconnect(self):
+        self.connected = False
+        print("Disconnected One")
+
+    def connect(self):
+        self.connected = True
+        print("Connected One")
+
+    def reconnect(self, seconds: int = 5):
+        self.seconds = seconds
+        self.disconnect()
+        print(f"One paused for {seconds} seconds...")
+        self.connect()
+
+
+class RelayTwo(RelayBase):
+    def __init__(self):
+        super().__init__()
+
+    def disconnect(self):
+        self.connected = False
+        print("Disconnected Two")
+
+    def connect(self):
+        self.connected = True
+        print("Connected Two")
+
+    def reconnect(self, seconds: int = 5):
+        self.seconds = seconds
+        self.disconnect()
+        print(f"Two paused for {seconds} seconds...")
+        self.connect()
 
 
 class Relay:
@@ -57,41 +101,3 @@ class Relay:
 
     def reconnect(self, seconds: int = 5) -> None:
         self.driver.reconnect(seconds)
-
-
-class RelayOne(RelayBase):
-    def __init__(self):
-        super().__init__()
-
-    def disconnect(self):
-        self.disconnected = True
-        print("Disconnected One")
-
-    def connect(self):
-        self.connected = True
-        print("Connected One")
-
-    def reconnect(self, seconds: int = 5):
-        self.seconds = seconds
-        self.disconnect()
-        print(f"One paused for {seconds} seconds...")
-        self.connect()
-
-
-class RelayTwo(RelayBase):
-    def __init__(self):
-        super().__init__()
-
-    def disconnect(self):
-        self.disconnected = True
-        print("Disconnected Two")
-
-    def connect(self):
-        self.connected = True
-        print("Connected Two")
-
-    def reconnect(self, seconds: int = 5):
-        self.seconds = seconds
-        self.disconnect()
-        print(f"Two paused for {seconds} seconds...")
-        self.connect()
